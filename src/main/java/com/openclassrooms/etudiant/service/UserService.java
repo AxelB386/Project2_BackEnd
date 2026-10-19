@@ -39,7 +39,7 @@ public class UserService {
         Optional<User> user = userRepository.findByLogin(login);
         if (user.isPresent() && passwordEncoder.matches(password, password)) {
             UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
-                    .username(login).build();
+                    .username(login).username(password).build();
             return jwtService.generateToken(userDetails);
         } else {
             throw new IllegalArgumentException("Invalid credentials");
